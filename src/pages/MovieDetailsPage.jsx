@@ -51,7 +51,7 @@ function MovieDetailsPage() {
         </div>
       ) : (
         <>
-          <div className="w-full flex justify-center px-4 pt-2 md:px-10">
+          <div className="w-full flex justify-center px-4 pt-2 md:px-5">
             <Navbar />
           </div>
           <div className="flex flex-col items-center w-full">
@@ -124,7 +124,7 @@ function MovieDetailsPage() {
                 </div>
               </motion.div>
             </div>
-            <div className="w-full max-w-[1400px] px-4 md:px-8">
+            <div className="w-full">
               <Section title={"Similar movies"} movies={simmilarMovies} />
             </div>
             <div className="w-full">

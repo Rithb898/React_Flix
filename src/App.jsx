@@ -51,7 +51,7 @@ function App() {
           <ClimbingBoxLoader color='#d3d3d3' />
         </div>
       ) : (
-        <div className='w-screen h-screen flex flex-col px-4 sm:px-8 lg:px-40 py-4 overflow-y-auto'>
+        <div className='w-full flex flex-col px-4 sm:px-8 lg:px-5 py-4'>
           <Navbar />
           <Section
             title={"Trending Movies"}

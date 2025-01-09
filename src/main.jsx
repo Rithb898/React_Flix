@@ -12,7 +12,7 @@ import WebSeriesDetailsPage from "./pages/WebSeriesDetailsPage";
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
     <ThemeProvider defaultTheme='dark' storageKey='vite-ui-theme'>
-      <div className='container'>
+      <div className='container mx-auto'>
         <Routes>
           <Route path='/' element={<App />} />
           <Route path='/movie' element={<MoviePage />} />

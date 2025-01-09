@@ -78,7 +78,7 @@ function WebSeriesDetailsPage() {
         </div>
       ) : (
         <>
-          <div className="w-full flex justify-center px-4 pt-2 md:px-10">
+          <div className="w-full flex justify-center px-4 pt-2 md:px-5">
             <Navbar />
           </div>
           <div className="flex flex-col items-center w-full">
@@ -185,7 +185,7 @@ function WebSeriesDetailsPage() {
                 </motion.div>
               ))}
             </motion.div>
-            <div className="w-full ml-0 md:ml-40">
+            <div className="w-full">
               <Section
                 title={"Similar Web Series"}
                 movies={simmilarWebSeries}
