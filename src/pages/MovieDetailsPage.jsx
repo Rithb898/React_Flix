@@ -145,7 +145,7 @@ function MovieDetailsPage() {
               </div>
               
               <div className="flex-1 px-2 sm:px-4 md:px-8 pb-4">
-                <div className="w-full h-full max-w-7xl mx-auto">
+                <div className="w-full h-full max-w-7xl mx-auto flex justify-center items-center">
                   <MoviePlayer id={id} />
                 </div>
               </div>

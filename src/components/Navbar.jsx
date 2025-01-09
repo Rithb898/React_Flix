@@ -8,28 +8,28 @@ function Navbar() {
 
   useEffect(() => {
     if (open) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     }
 
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     };
   }, [open]);
 
   const toggleMenu = () => setOpen(!open);
 
   return (
-    <nav className='flex justify-between items-center text-lg md:text-xl font-bold px-2 md:px-10 relative w-full'>
+    <nav className="flex justify-between items-center text-lg md:text-xl font-bold px-2 md:px-10 relative w-full">
       {/* Logo */}
-      <Link to={"/"} className='cursor-pointer' aria-label='Home'>
+      <Link to={"/"} className="cursor-pointer" aria-label="Home">
         <div>RithFlix</div>
       </Link>
 
       {/* Navigation Links */}
-      <div className='flex justify-center items-center gap-5 md:gap-10'>
-        <ul className='hidden md:flex flex-row gap-5'>
+      <div className="flex justify-center items-center gap-5 md:gap-10">
+        <ul className="hidden md:flex flex-row gap-5">
           <NavLink
             to={"/"}
             className={({ isActive }) =>
@@ -64,11 +64,11 @@ function Navbar() {
 
         {/* Mobile Menu Button */}
         <button
-          className='md:hidden'
+          className="md:hidden"
           aria-label={open ? "Close menu" : "Open menu"}
           onClick={toggleMenu}
         >
-          {open ? <X className='w-6 h-6' /> : <Menu className='w-6 h-6' />}
+          {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
 
         <ModeToggle />
@@ -76,8 +76,8 @@ function Navbar() {
 
       {/* Mobile Menu */}
       {open && (
-        <div className='fixed top-16 left-0 w-full h-[calc(100vh-4rem)] bg-white dark:bg-black shadow-md z-50 overflow-y-auto'>
-          <ul className='flex flex-col gap-5 p-5'>
+        <div className="fixed top-16 left-0 w-full h-[calc(100vh-4rem)] bg-white dark:bg-black shadow-md z-50 overflow-y-auto">
+          <ul className="flex flex-col gap-5 p-5">
             <NavLink
               to={"/"}
               className={({ isActive }) =>
