@@ -1,10 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router";
 import { ModeToggle } from "./mode-toggle";
 import { Menu, X } from "lucide-react";
 
 function Navbar() {
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [open]);
 
   const toggleMenu = () => setOpen(!open);
 
@@ -64,7 +76,7 @@ function Navbar() {
 
       {/* Mobile Menu */}
       {open && (
-        <div className='fixed top-16 left-0 w-full bg-white dark:bg-black shadow-md z-50'>
+        <div className='fixed top-16 left-0 w-full h-[calc(100vh-4rem)] bg-white dark:bg-black shadow-md z-50 overflow-y-auto'>
           <ul className='flex flex-col gap-5 p-5'>
             <NavLink
               to={"/"}

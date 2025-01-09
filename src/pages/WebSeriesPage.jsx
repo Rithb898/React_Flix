@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { apiOptions } from "../lib/apiOptions";
 import { Play, Search, Star } from "lucide-react";
 import Navbar from "../components/Navbar";
 import { Input } from "../components/ui/input";
-import { movieGenre } from "../lib/genre";
 import Card from "../components/Card";
 import { ClimbingBoxLoader } from "react-spinners";
 import Footer from "../components/Footer";
+import { webSeriesGenre } from "../lib/genre";
 import {
   Select,
   SelectContent,
@@ -17,14 +17,13 @@ import {
 } from "../components/ui/select";
 import BackToTop from "../components/BackToTop";
 
-function MoviePage() {
+function WebSeriesPage() {
   const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchData, setSearchData] = useState([]);
   const [data, setData] = useState([]);
   const [selectedGenre, setSelectedGenre] = useState("");
   const [sortBy, setSortBy] = useState("");
-  const [page, setPage] = useState(1);
 
   //   setSearch(e.target.value);
   //   if (e.key === "Enter") {
@@ -55,7 +54,7 @@ function MoviePage() {
 
   useEffect(() => {
     fetch(
-      `https://api.themoviedb.org/3/discover/movie?language=en-US&page=${page}`,
+      `https://api.themoviedb.org/3/discover/tv?language=en-US&page=1`,
       apiOptions
     )
       .then((res) => res.json())
@@ -64,7 +63,7 @@ function MoviePage() {
       })
       .catch((err) => console.error(err))
       .finally(() => setLoading(false));
-  }, [page]);
+  }, []);
 
   return (
     <>
@@ -77,15 +76,15 @@ function MoviePage() {
         </div>
       )}
       <div className="flex justify-center w-full py-20 mb-5 bg-gray-600 -mt-12 rounded-lg">
-        <h1 className="text-3xl font-bold" id="top">Discover Movies</h1>
+        <h1 className="text-3xl font-bold">Discover Web Series</h1>
       </div>
-      <div className="flex justify-between w-full items-center px-10 md:px-72">
-        <div className="relative w-full md:mr-80">
+      <div className="flex justify-between w-full items-center px-72">
+        <div className="relative w-full mr-80">
           <form onSubmit={handleSearch}>
             <Input
               type="search"
-              placeholder="Search movies"
-              aria-label="Search movies"
+              placeholder="Search web series"
+              aria-label="Search web series"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full bg-gray-700/50 border-0 focus-visible:ring-0 text-white placeholder:text-gray-300 px-5"
@@ -104,8 +103,11 @@ function MoviePage() {
               <SelectValue placeholder="Genres" />
             </SelectTrigger>
             <SelectContent>
-              {movieGenre.map((genre) => (
-                <SelectItem key={genre.id} value={genre.name}>
+              {webSeriesGenre.map((genre) => (
+                <SelectItem 
+                  key={genre.id} 
+                  value={genre.name}
+                >
                   {genre.name}
                 </SelectItem>
               ))}
@@ -155,16 +157,6 @@ function MoviePage() {
             })}
           </div>
         )}
-        <div className="flex justify-center items-center">
-          <Link to="#top">
-            <button
-              className="bg-gray-800 text-white px-4 py-2 rounded-md mt-5"
-              onClick={() => setPage(page + 1) & setLoading(true)}
-            >
-              Load More
-            </button>
-          </Link>
-        </div>
         <div className="w-full">
           <Footer />
         </div>
@@ -174,4 +166,4 @@ function MoviePage() {
   );
 }
 
-export default MoviePage;
+export default WebSeriesPage;

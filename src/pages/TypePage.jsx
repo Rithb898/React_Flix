@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { apiOptions } from "../lib/apiOptions";
 import { Play, Search, Star } from "lucide-react";
 import Navbar from "../components/Navbar";
@@ -8,23 +8,32 @@ import { movieGenre } from "../lib/genre";
 import Card from "../components/Card";
 import { ClimbingBoxLoader } from "react-spinners";
 import Footer from "../components/Footer";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../components/ui/select";
-import BackToTop from "../components/BackToTop";
 
-function MoviePage() {
+function TypePage() {
+  const { type } = useParams();
+  const trendingMoviesURL =
+    "https://api.themoviedb.org/3/trending/movie/day?language=en-US";
+  const trendingWebSeiesURL =
+    "https://api.themoviedb.org/3/trending/tv/day?language=en-US";
+  const topRatedMoviesURL =
+    "https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1";
+  const topRatedWebSeriesURL =
+    "https://api.themoviedb.org/3/tv/top_rated?language=en-US&page=1";
+  const [trendingMovies, setTrendingMovies] = useState([]);
+  const [topRatedMovies, setTopRatedMovies] = useState([]);
+  const [trendingWebSeris, setTrendingWebSeris] = useState([]);
+  const [topRatedWebSeris, setTopRatedWebSeris] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchData, setSearchData] = useState([]);
-  const [data, setData] = useState([]);
-  const [selectedGenre, setSelectedGenre] = useState("");
-  const [sortBy, setSortBy] = useState("");
-  const [page, setPage] = useState(1);
+  const movieData = {
+    "trending-movies": trendingMovies,
+    "trending-web-series": trendingWebSeris,
+    "top-rated-movies": topRatedMovies,
+    "top-rated-web-series": topRatedWebSeris,
+  };
+
+  const data = movieData[type] || [];
 
   //   setSearch(e.target.value);
   //   if (e.key === "Enter") {
@@ -55,16 +64,29 @@ function MoviePage() {
 
   useEffect(() => {
     fetch(
-      `https://api.themoviedb.org/3/discover/movie?language=en-US&page=${page}`,
+      `${
+        type == "trending-movies"
+          ? trendingMoviesURL
+          : type == "trending-web-series"
+          ? trendingWebSeiesURL
+          : type == "top-rated-movies"
+          ? topRatedMoviesURL
+          : topRatedWebSeriesURL
+      }`,
       apiOptions
     )
       .then((res) => res.json())
       .then((json) => {
-        setData(json.results);
+        type == "trending-movies"
+          ? setTrendingMovies(json.results)
+          : type == "trending-web-series"
+          ? setTrendingWebSeris(json.results)
+          : type == "top-rated-movies"
+          ? setTopRatedMovies(json.results)
+          : setTopRatedWebSeris(json.results);
       })
-      .catch((err) => console.error(err))
-      .finally(() => setLoading(false));
-  }, [page]);
+      .catch((err) => console.error(err));
+  }, [type]);
 
   return (
     <>
@@ -77,10 +99,18 @@ function MoviePage() {
         </div>
       )}
       <div className="flex justify-center w-full py-20 mb-5 bg-gray-600 -mt-12 rounded-lg">
-        <h1 className="text-3xl font-bold" id="top">Discover Movies</h1>
+        <h1 className="text-3xl font-bold">
+          {type == "trending-movies"
+            ? "Trending Movies"
+            : type == "trending-web-series"
+            ? "Trending Web Series"
+            : type == "top-rated-movies"
+            ? "Top Rated Movies"
+            : "Top Rated Web Series"}
+        </h1>
       </div>
-      <div className="flex justify-between w-full items-center px-10 md:px-72">
-        <div className="relative w-full md:mr-80">
+      <div className="flex justify-between w-full items-center px-72">
+        <div className="relative w-full mr-80">
           <form onSubmit={handleSearch}>
             <Input
               type="search"
@@ -99,33 +129,34 @@ function MoviePage() {
           </form>
         </div>
         <div className="flex gap-5">
-          <Select onValueChange={setSelectedGenre}>
-            <SelectTrigger className="w-[180px] bg-gray-800 text-white border-gray-600">
-              <SelectValue placeholder="Genres" />
-            </SelectTrigger>
-            <SelectContent>
-              {movieGenre.map((genre) => (
-                <SelectItem key={genre.id} value={genre.name}>
-                  {genre.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-
-          <Select onValueChange={setSortBy}>
-            <SelectTrigger className="w-[180px] bg-gray-800 text-white border-gray-600">
-              <SelectValue placeholder="Sort By" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="popularity">Popularity</SelectItem>
-              <SelectItem value="rating">Rating</SelectItem>
-            </SelectContent>
-          </Select>
+          <select className="text-gray-300 rounded-sm px-2 py-1 bg-gray-700/50">
+            <option value="" defaultValue disabled>
+              Genres
+            </option>
+            {movieGenre.map((genre) => (
+              <option className="bg-gray-700/50" value={genre.name}>
+                {genre.name}
+              </option>
+            ))}
+          </select>
+          <select className="text-gray-300 rounded-sm px-4 py-1 bg-gray-700/50">
+            <option value="" defaultValue disabled>
+              Sort By
+            </option>{" "}
+            {/* Added selected */}
+            <option value="popularity" className="bg-gray-700/50">
+              Popularity
+            </option>{" "}
+            {/* Added value attributes */}
+            <option value="rating" className="bg-gray-700/50">
+              Rating
+            </option>
+          </select>
         </div>
       </div>
       <div>
         {searchData.length > 0 ? (
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-10 mx-auto w-full px-4 md:px-10 pt-5">
+          <div className="flex justify-center flex-wrap gap-5 mx-auto w-screen px-10 pt-5">
             {searchData.map((movie, index) => {
               return (
                 <Card
@@ -140,7 +171,7 @@ function MoviePage() {
             })}
           </div>
         ) : (
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-10 mx-auto w-full px-4 md:px-10 pt-5">
+          <div className="flex justify-center flex-wrap gap-5 mx-auto w-full px-20 pt-5">
             {data.map((movie, index) => {
               return (
                 <Card
@@ -155,23 +186,12 @@ function MoviePage() {
             })}
           </div>
         )}
-        <div className="flex justify-center items-center">
-          <Link to="#top">
-            <button
-              className="bg-gray-800 text-white px-4 py-2 rounded-md mt-5"
-              onClick={() => setPage(page + 1) & setLoading(true)}
-            >
-              Load More
-            </button>
-          </Link>
-        </div>
         <div className="w-full">
           <Footer />
         </div>
       </div>
-      <BackToTop />
     </>
   );
 }
 
-export default MoviePage;
+export default TypePage;
