@@ -21,7 +21,7 @@ function Navbar() {
   const toggleMenu = () => setOpen(!open);
 
   return (
-    <nav className='flex justify-between items-center text-lg md:text-xl font-bold px-4 md:px-10 relative w-full'>
+    <nav className='flex justify-between items-center text-lg md:text-xl font-bold px-2 md:px-10 relative w-full'>
       {/* Logo */}
       <Link to={"/"} className='cursor-pointer' aria-label='Home'>
         <div>RithFlix</div>
