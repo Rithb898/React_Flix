@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 function WebSeriesPlayer({ id, season, episode }) {
   const [isLoading, setIsLoading] = useState(true);

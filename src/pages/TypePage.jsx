@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { apiOptions } from "../lib/apiOptions";
-import { Play, Search, Star } from "lucide-react";
+import { Search} from "lucide-react";
 import Navbar from "../components/Navbar";
 import { Input } from "../components/ui/input";
 import { movieGenre } from "../lib/genre";
@@ -133,8 +133,8 @@ function TypePage() {
             <option value="" defaultValue disabled>
               Genres
             </option>
-            {movieGenre.map((genre) => (
-              <option className="bg-gray-700/50" value={genre.name}>
+            {movieGenre.map((genre, index) => (
+              <option className="bg-gray-700/50" value={genre.name} key={index}>
                 {genre.name}
               </option>
             ))}

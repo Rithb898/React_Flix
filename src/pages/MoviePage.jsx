@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { apiOptions } from "../lib/apiOptions";
-import { Play, Search, Star } from "lucide-react";
+import { Search } from "lucide-react";
 import Navbar from "../components/Navbar";
 import { Input } from "../components/ui/input";
 import { movieGenre } from "../lib/genre";

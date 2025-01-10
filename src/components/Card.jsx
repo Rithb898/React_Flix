@@ -1,10 +1,9 @@
 import { Play, Star } from "lucide-react";
-import React from "react";
 import { Link } from "react-router";
 
-function Card({index,id,vote,title,poster }) {
+function Card({ id, vote, title, poster, onError }) {
   return (
-    <div className='relative group/card w-52' key={index}>
+    <div className='relative group/card w-52'>
       <div className='flex absolute top-1 right-2 text-red-600 text-sm items-center gap-1 z-10'>
         <Star className='w-4 h-4' />
         <span>{vote.toFixed(1)}</span>
@@ -28,6 +27,8 @@ function Card({index,id,vote,title,poster }) {
         width={176}
         height={264}
         className='w-full rounded-md'
+        onError={onError}
+        loading="lazy"
       />
     </div>
   );

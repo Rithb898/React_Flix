@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router";
 import { ModeToggle } from "./mode-toggle";
 import { Menu, X } from "lucide-react";

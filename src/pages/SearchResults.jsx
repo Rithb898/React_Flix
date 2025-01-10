@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 
 import { apiOptions } from "../lib/apiOptions";
 import Navbar from "../components/Navbar";
 import Card from "../components/Card";
+import { Input } from "../components/ui/input";
 
 function SearchResults() {
   const [searchParams] = useSearchParams();
