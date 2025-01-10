@@ -53,6 +53,22 @@ function App() {
       ) : (
         <div className='w-full flex flex-col px-4 sm:px-8 lg:px-5 py-4'>
           <Navbar />
+          {/* A-Ads Advertishment start here */}
+            <div id='frame' style='width: 100%;'>
+              <iframe
+                data-aa='2375197'
+                src='//acceptable.a-ads.com/2375197'
+                style='border:0px; padding:0; width:100%; height:100%; overflow:hidden; background-color: transparent;'
+              ></iframe>
+              <a
+                style='display: block; text-align: right; font-size: 12px'
+                id='frame-link'
+                href='https://aads.com/campaigns/new/?source_id=2375197&source_type=ad_unit&partner=2375197'
+              >
+                Advertise here
+              </a>
+            </div>
+            {/* A-Ads Advertishment end here */}
           <Section
             title={"Trending Movies"}
             movies={trendingMovies}
