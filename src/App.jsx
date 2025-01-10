@@ -11,6 +11,33 @@ function App() {
   const [trendingWebSeris, setTrendingWebSeris] = useState([]);
   const [topRatedWebSeris, setTopRatedWebSeris] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const sections = [
+    {
+      title: "Trending Movies",
+      data: trendingMovies,
+      link: "trending-movies",
+      type: "movie",
+    },
+    {
+      title: "Top Rated Movies",
+      data: topRatedMovies,
+      link: "top-rated-movies",
+      type: "movie",
+    },
+    {
+      title: "Trending Web Series",
+      data: trendingWebSeris,
+      link: "trending-web-series",
+      type: "web-series",
+    },
+    {
+      title: "Top Rated Web Series",
+      data: topRatedWebSeris,
+      link: "top-rated-web-series",
+      type: "web-series",
+    },
+  ];
 
   useEffect(() => {
     setLoading(true);
@@ -40,59 +67,33 @@ function App() {
         setTrendingWebSeris(data[2].results);
         setTopRatedWebSeris(data[3].results);
       })
-      .catch((err) => console.error("Error fetching data:", err))
+      .catch((err) => {
+        console.error("Error fetching data:", err);
+        setError("Failed to fetch data. Please try again later.");
+      })
       .finally(() => setLoading(false));
   }, []);
 
   return (
     <>
       {loading ? (
-        <div className='min-h-screen w-full flex justify-center items-center'>
-          <ClimbingBoxLoader color='#d3d3d3' />
+        <div className="min-h-screen w-full flex justify-center items-center">
+          <ClimbingBoxLoader color="#d3d3d3" />
         </div>
       ) : (
-        <div className='w-full flex flex-col px-4 sm:px-8 lg:px-5 py-4'>
+        <div className="w-full flex flex-col px-4 sm:px-8 lg:px-5 py-4">
           <Navbar />
-          {/* A-Ads Advertishment start here */}
-            <div id='frame' style='width: 100%;'>
-              <iframe
-                data-aa='2375197'
-                src='//acceptable.a-ads.com/2375197'
-                style='border:0px; padding:0; width:100%; height:100%; overflow:hidden; background-color: transparent;'
-              ></iframe>
-              <a
-                style='display: block; text-align: right; font-size: 12px'
-                id='frame-link'
-                href='https://aads.com/campaigns/new/?source_id=2375197&source_type=ad_unit&partner=2375197'
-              >
-                Advertise here
-              </a>
-            </div>
-            {/* A-Ads Advertishment end here */}
-          <Section
-            title={"Trending Movies"}
-            movies={trendingMovies}
-            link={"trending-movies"}
-            type={"movie"}
-          />
-          <Section
-            title={"Top Rated Movies"}
-            movies={topRatedMovies}
-            link={"top-rated-movies"}
-            type={"movie"}
-          />
-          <Section
-            title={"Trending Web Series"}
-            movies={trendingWebSeris}
-            link={"trending-web-series"}
-            type={"web-series"}
-          />
-          <Section
-            title={"Top Rated Web Series"}
-            movies={topRatedWebSeris}
-            link={"top-rated-web-series"}
-            type={"web-series"}
-          />
+
+          {sections.map((section, idx) => (
+            <Section
+              key={idx}
+              title={section.title}
+              movies={section.data}
+              link={section.link}
+              type={section.type}
+            />
+          ))}
+          {error && <div className="text-red-500 text-center">{error}</div>}
           <Footer />
         </div>
       )}

@@ -20,14 +20,14 @@ function MovieDetailsPage() {
   const [movieDetailsQuery, similarMoviesQuery] = useQueries({
     queries: [
       {
-        queryKey: ['movieDetails', id],
+        queryKey: ["movieDetails", id],
         queryFn: async () => {
           const response = await fetch(
             `https://api.themoviedb.org/3/movie/${id}?language=en-US`,
             apiOptions
           );
           if (!response.ok) {
-            throw new Error('Failed to fetch movie details');
+            throw new Error("Failed to fetch movie details");
           }
           return response.json();
         },
@@ -35,14 +35,14 @@ function MovieDetailsPage() {
         cacheTime: 30 * 60 * 1000, // Cache data for 30 minutes
       },
       {
-        queryKey: ['similarMovies', id],
+        queryKey: ["similarMovies", id],
         queryFn: async () => {
           const response = await fetch(
             `https://api.themoviedb.org/3/movie/${id}/similar?language=en-US&page=1`,
             apiOptions
           );
           if (!response.ok) {
-            throw new Error('Failed to fetch similar movies');
+            throw new Error("Failed to fetch similar movies");
           }
           return response.json();
         },
@@ -57,8 +57,8 @@ function MovieDetailsPage() {
   const [backdropError, setBackdropError] = useState(false);
 
   const handleImageError = (type) => {
-    if (type === 'poster') setPosterError(true);
-    if (type === 'backdrop') setBackdropError(true);
+    if (type === "poster") setPosterError(true);
+    if (type === "backdrop") setBackdropError(true);
   };
 
   const isLoading = movieDetailsQuery.isLoading || similarMoviesQuery.isLoading;
@@ -73,7 +73,8 @@ function MovieDetailsPage() {
     visible: { opacity: 1, transition: { duration: 0.5 } },
   };
 
-  const fallbackImage = "https://via.placeholder.com/342x513?text=No+Image+Available";
+  const fallbackImage =
+    "https://via.placeholder.com/342x513?text=No+Image+Available";
 
   return (
     <motion.div
@@ -107,7 +108,7 @@ function MovieDetailsPage() {
                 }
                 alt="Backdrop"
                 className="absolute top-0 left-0 right-0 w-full h-full object-cover opacity-40 hidden md:block -z-50"
-                onError={() => handleImageError('backdrop')}
+                onError={() => handleImageError("backdrop")}
               />
               <img
                 src={
@@ -117,7 +118,7 @@ function MovieDetailsPage() {
                 }
                 alt="Poster"
                 className="w-40 md:w-64 md:block hidden"
-                onError={() => handleImageError('poster')}
+                onError={() => handleImageError("poster")}
               />
               <div className="md:hidden w-full flex justify-center py-5">
                 <motion.img
@@ -203,12 +204,19 @@ function MovieDetailsPage() {
               </div>
 
               <div className="flex-1 px-2 sm:px-4 md:px-8 pb-4">
-                <div className="w-full h-full max-w-7xl mx-auto flex justify-center items-center">
-                  <Suspense fallback={
-                    <div className="flex justify-center items-center w-full h-full">
-                      <ClimbingBoxLoader color="#d3d3d3" />
-                    </div>
-                  }>
+                <div className="w-full h-full max-w-7xl mx-auto flex flex-col justify-center items-center">
+                  <Suspense
+                    fallback={
+                      <div className="flex justify-center items-center w-full h-full">
+                        <ClimbingBoxLoader color="#d3d3d3" />
+                      </div>
+                    }
+                  >
+                    <iframe
+                      data-aa="2375197"
+                      src="//acceptable.a-ads.com/2375197"
+                      className="w-full h-14 border-0 p-0 overflow-hidden bg-transparent mb-5"
+                    ></iframe>
                     <MoviePlayer id={id} />
                   </Suspense>
                 </div>

@@ -1,10 +1,13 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router";
 import { ModeToggle } from "./mode-toggle";
-import { Menu, X } from "lucide-react";
+import { Menu, Search, X } from "lucide-react";
+import { Input } from "./ui/input";
 
 function Navbar() {
   const [open, setOpen] = useState(false);
+  const [isSearchVisible, setIsSearchVisible] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     if (open) {
@@ -19,8 +22,19 @@ function Navbar() {
   }, [open]);
 
   const toggleMenu = () => setOpen(!open);
+  const toggleSearch = () => setIsSearchVisible(!isSearchVisible);
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+    // Implement your search logic here
+    console.log("Searching for:", searchQuery);
+  };
 
   return (
+    <>
+    
     <nav className="flex justify-between items-center text-lg md:text-xl font-bold px-2 md:px-10 relative w-full">
       {/* Logo */}
       <Link to={"/"} className="cursor-pointer" aria-label="Home">
@@ -61,6 +75,9 @@ function Navbar() {
             <li>Web Series</li>
           </NavLink>
         </ul>
+        <button onClick={toggleSearch} className="search-button">
+          <Search />
+        </button>
 
         {/* Mobile Menu Button */}
         <button
@@ -115,6 +132,21 @@ function Navbar() {
         </div>
       )}
     </nav>
+    {isSearchVisible && (
+        <form onSubmit={handleSearchSubmit} className="md:right-64 h-8 flex justify-center items-center mt-2">
+          <Input
+            type="text"
+            value={searchQuery}
+            onChange={handleSearchChange}
+            placeholder="Search..."
+            className="w-60 px-3 py-1 text-base h-full"
+          />
+          <button type="submit" className="bg-blue-500 text-white px-3 h-full">
+            <Search className="w-6 h-6" />
+          </button>
+        </form>
+      )}
+    </>
   );
 }
 
