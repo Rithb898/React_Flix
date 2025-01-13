@@ -81,7 +81,7 @@ function App() {
           <ClimbingBoxLoader color="#d3d3d3" />
         </div>
       ) : (
-        <div className="w-full flex flex-col px-4 sm:px-8 lg:px-5 py-4">
+        <div className="w-full flex flex-col px-2 sm:px-4 lg:px-5 py-4">
           <Navbar />
 
           {sections.map((section, idx) => (
@@ -91,6 +91,7 @@ function App() {
               movies={section.data}
               link={section.link}
               type={section.type}
+              linkvisible={true}
             />
           ))}
           {error && <div className="text-red-500 text-center">{error}</div>}

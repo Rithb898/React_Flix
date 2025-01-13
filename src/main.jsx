@@ -10,6 +10,7 @@ import WebSeriesDetailsPage from "./pages/WebSeriesDetailsPage";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import WebSeriesPage from "./pages/WebSeriesPage";
 import { IKContext } from "imagekitio-react";
+import TypePage from "./pages/TypePage";
 
 const queryClient = new QueryClient();
 
@@ -24,7 +25,7 @@ createRoot(document.getElementById("root")).render(
               <Route path='/movie' element={<MoviePage />} />
               <Route path='/web-series' element={<WebSeriesPage />} />
               <Route path='/movie/:id' element={<MovieDetailsPage />} />
-              <Route path='/movie/type/:type' element={<MoviePage />} />
+              <Route path='/type/:type' element={<TypePage />} />
               <Route path='search' element={<SearchResults />} />
               <Route
                 path='/web-series/:id'

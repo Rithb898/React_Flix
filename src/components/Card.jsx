@@ -4,7 +4,7 @@ import { Link } from "react-router";
 
 function Card({ index, id, vote, title, poster, type }) {
   return (
-    <div className='relative group/card w-52' key={index}>
+    <div className='relative group/card w-48' key={index}>
       <div className='flex absolute top-1 right-2 text-red-600 text-sm items-center gap-1 z-10'>
         <Star className='w-4 h-4' />
         <span>{vote.toFixed(1)}</span>
@@ -24,12 +24,6 @@ function Card({ index, id, vote, title, poster, type }) {
         src={`https://image.tmdb.org/t/p/w342/${poster}`}
         className='w-full rounded-md'
         loading='lazy'
-        transformation={[
-          {
-            height: 264,
-            width: 176,
-          },
-        ]}
       />
     </div>
   );

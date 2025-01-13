@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router";
 import { apiOptions } from "../lib/apiOptions";
 import Navbar from "../components/Navbar";
 import Card from "../components/Card";
+import Section from "../components/Section";
 
 function SearchResults() {
   const [searchParams] = useSearchParams();
@@ -27,46 +28,32 @@ function SearchResults() {
   }, [query]);
 
   return (
-    <div className="w-full justify-center px-10">
+    <div className='w-full overflow-hidden'>
       <Navbar />
-      <div className="">
-        <h2 className="mb-6 text-2xl font-bold text-white">
+      <div className='w-full mx-auto px-10'>
+        <h2 className='mb-6 mt-5 text-xl md:text-2xl font-bold text-white'>
           Search Results for "{query}"
         </h2>
         {movies.length > 0 && (
-          <section className="py-8">
-            <h3 className="mb-6 text-xl font-bold text-white">Movies</h3>
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
-              {movies.map((movie, index) => (
-                <Card
-                  key={index}
-                  index={index}
-                  id={movie.id}
-                  vote={movie.vote_average}
-                  title={movie.original_title}
-                  poster={movie.poster_path}
-                  type="movie"
-                />
-              ))}
-            </div>
+          <section className='py-8'>
+            <Section
+              title={"Movies"}
+              movies={movies}
+              link={false}
+              linkvisible={false}
+              type={"movie"}
+            />
           </section>
         )}
         {tvShows.length > 0 && (
-          <section className="py-8">
-            <h3 className="mb-6 text-xl font-bold text-white">TV Shows</h3>
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
-              {tvShows.map((movie, index) => (
-                <Card
-                  key={index}
-                  index={index}
-                  id={movie.id}
-                  vote={movie.vote_average}
-                  title={movie.original_title}
-                  poster={movie.poster_path}
-                  type="tv"
-                />
-              ))}
-            </div>
+          <section className='py-8'>
+            <Section
+              title={"Web Series"}
+              movies={tvShows}
+              link={false}
+              linkvisible={false}
+              type={"web-series"}
+            />
           </section>
         )}
       </div>

@@ -7,7 +7,7 @@ import "swiper/css/navigation";
 import { Link } from "react-router";
 import { IKImage } from "imagekitio-react";
 
-function Section({ title, movies, link, type }) {
+function Section({ title, movies, link, type, linkvisible }) {
   return (
     <div className='px-1 md:px-10'>
       {/* Section Title */}
@@ -16,11 +16,13 @@ function Section({ title, movies, link, type }) {
           <div className='text-xl md:text-2xl font-bold'>{title}</div>
           <div className='bg-red-600 w-16 md:w-24 h-1 mt-2'></div>
         </div>
-        <Link to={`/type/${link}`}>
-          <div className='border-2 border-white/70 rounded-xl px-3 py-0.5 text-white cursor-pointer text-sm md:text-base'>
-            View All
-          </div>
-        </Link>
+        {linkvisible && (
+          <Link to={`/type/${link}`}>
+            <div className='border-2 border-white/70 rounded-xl px-3 py-0.5 text-white cursor-pointer text-sm md:text-base'>
+              View All
+            </div>
+          </Link>
+        )}
       </div>
 
       {/* Movies Swiper */}
