@@ -10,12 +10,20 @@ function MoviePlayer({ id }) {
           <div className='w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin'></div>
         </div>
       )}
-      <iframe
+      {/* <iframe
         src={`https://player.autoembed.cc/embed/movie/${id}?server=2`}
         title='Movie Player'
         allowFullScreen
         className='absolute top-0 left-0 w-full h-full rounded-lg'
         onLoad={() => setIsLoading(false)}
+      ></iframe> */}
+      <iframe
+        src={`https://vidsrc.me/embed/movie?tmdb=${id}`}
+        className='absolute top-0 left-0 w-full h-full rounded-lg'
+        onLoad={() => setIsLoading(false)}
+        frameborder='0'
+        referrerpolicy='origin'
+        allowfullscreen
       ></iframe>
     </div>
   );

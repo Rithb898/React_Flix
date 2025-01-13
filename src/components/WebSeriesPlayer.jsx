@@ -3,18 +3,25 @@ import { useState } from "react";
 function WebSeriesPlayer({ id, season, episode }) {
   const [isLoading, setIsLoading] = useState(true);
   return (
-    <div className="relative w-full h-0 pb-[56.25%]">
+    <div className='relative w-full h-0 pb-[56.25%]'>
       {isLoading && (
-        <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-black/10 rounded-lg">
-          <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+        <div className='absolute top-0 left-0 w-full h-full flex items-center justify-center bg-black/10 rounded-lg'>
+          <div className='w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin'></div>
         </div>
       )}
-      <iframe
+      {/* <iframe
         src={`https://player.autoembed.cc/embed/tv/${id}/${season}/${episode}?server=2`}
         title="Movie Player"
         allowFullScreen
         className="absolute top-0 left-0 w-full h-full rounded-lg"
         onLoad={() => setIsLoading(false)}
+      ></iframe> */}
+      <iframe
+        src={`https://vidsrc.me/embed/tv?tmdb=${id}&season=${season}&episode=${episode}`}
+        style='width: 100%; height: 100%;'
+        frameborder='0'
+        referrerpolicy='origin'
+        allowfullscreen
       ></iframe>
     </div>
   );

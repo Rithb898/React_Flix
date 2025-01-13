@@ -1,18 +1,14 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
-
 import { apiOptions } from "../lib/apiOptions";
 import Navbar from "../components/Navbar";
 import Card from "../components/Card";
-import { Input } from "../components/ui/input";
 
 function SearchResults() {
   const [searchParams] = useSearchParams();
   const query = searchParams.get("q");
   const [movies, setMovies] = useState([]);
   const [tvShows, setTvShows] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [searchData, setSearchData] = useState([]);
 
   useEffect(() => {
     if (query) {
@@ -33,25 +29,7 @@ function SearchResults() {
   return (
     <div className="w-full justify-center px-10">
       <Navbar />
-      <div className="relative w-full mr-80">
-        <form onSubmit={handleSearch}>
-          <Input
-            type="search"
-            placeholder="Search web series"
-            aria-label="Search web series"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-gray-700/50 border-0 focus-visible:ring-0 text-white placeholder:text-gray-300 px-5"
-          />
-          <div
-            className="bg-black w-10 absolute right-0 top-1/2 -translate-y-1/2 flex justify-center items-center h-full"
-            onClick={handleSearch}
-          >
-            <Search className="text-gray-300 h-5 w-5" />
-          </div>
-        </form>
-      </div>
-      <div className="pt-20">
+      <div className="">
         <h2 className="mb-6 text-2xl font-bold text-white">
           Search Results for "{query}"
         </h2>
@@ -67,6 +45,7 @@ function SearchResults() {
                   vote={movie.vote_average}
                   title={movie.original_title}
                   poster={movie.poster_path}
+                  type="movie"
                 />
               ))}
             </div>
@@ -84,6 +63,7 @@ function SearchResults() {
                   vote={movie.vote_average}
                   title={movie.original_title}
                   poster={movie.poster_path}
+                  type="tv"
                 />
               ))}
             </div>

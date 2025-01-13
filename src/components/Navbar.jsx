@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, NavLink } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 import { ModeToggle } from "./mode-toggle";
 import { Menu, Search, X } from "lucide-react";
 import { Input } from "./ui/input";
@@ -23,6 +23,7 @@ function Navbar() {
 
   const toggleMenu = () => setOpen(!open);
   const toggleSearch = () => setIsSearchVisible(!isSearchVisible);
+  const navigation = useNavigate();
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
   };
@@ -30,6 +31,7 @@ function Navbar() {
     event.preventDefault();
     // Implement your search logic here
     console.log("Searching for:", searchQuery);
+    navigation(`/search?q=${searchQuery}`);
   };
 
   return (

@@ -1,7 +1,8 @@
+import { IKImage } from "imagekitio-react";
 import { Play, Star } from "lucide-react";
 import { Link } from "react-router";
 
-function Card({index,id,vote,title,poster,type }) {
+function Card({ index, id, vote, title, poster, type }) {
   return (
     <div className='relative group/card w-52' key={index}>
       <div className='flex absolute top-1 right-2 text-red-600 text-sm items-center gap-1 z-10'>
@@ -17,16 +18,18 @@ function Card({index,id,vote,title,poster,type }) {
             <Play className='w-6 h-6' />
           </button>
         </Link>
-        <h3 className='text-center text-white mt-4 px-2 text-sm'>
-          {title}
-        </h3>
+        <h3 className='text-center text-white mt-4 px-2 text-sm'>{title}</h3>
       </div>
-      <img
+      <IKImage
         src={`https://image.tmdb.org/t/p/w342/${poster}`}
-        alt={`${title} Poster`}
-        width={176}
-        height={264}
         className='w-full rounded-md'
+        loading='lazy'
+        transformation={[
+          {
+            height: 264,
+            width: 176,
+          },
+        ]}
       />
     </div>
   );
