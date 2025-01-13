@@ -39,7 +39,7 @@ function Navbar() {
       <nav className='flex justify-between items-center text-lg md:text-xl font-bold px-2 md:px-10 relative w-full'>
         {/* Logo */}
         <Link to={"/"} className='cursor-pointer' aria-label='Home'>
-          <div>RithFlix</div>
+          <div>WatchNest</div>
         </Link>
 
         {/* Navigation Links */}
